@@ -1,0 +1,8 @@
+*.pyc
+__pycache__/
+/data/
+/output/
+/v1/summaries/
+/v1/sample_images_while_training/
+/v1/data/
+/v1/checkpoints/
