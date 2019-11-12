@@ -9,8 +9,6 @@ from tensorflow.keras.optimizers import SGD
 gpus = tf.config.experimental.list_physical_devices('GPU')
 tf.config.experimental.set_virtual_device_configuration(gpus[0], [tf.config.experimental.VirtualDeviceConfiguration(memory_limit=1024)])
 
-
-# Generate dummy data
 x_train = np.random.random((100, 100, 100, 3))
 y_train = keras.utils.to_categorical(np.random.randint(10, size=(100, 1)), num_classes=10)
 x_test = np.random.random((100, 100, 100, 3))
