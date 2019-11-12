@@ -26,6 +26,7 @@ def make_federated_data(client_data, client_ids):
     return [preprocess(client_data.create_tf_dataset_for_client(x))
             for x in client_ids]
 
+# change to randomly sampled client!
 sample_clients = emnist_train.client_ids[0:NUM_CLIENTS]
 federated_train_data = make_federated_data(emnist_train, sample_clients)
 
@@ -137,5 +138,12 @@ iterative_process = tff.learning.build_federated_averaging_process(
     MnistTrainableModel)
 state = iterative_process.initialize()
 for round_num in range(2, 11):
-  state, metrics = iterative_process.next(state, federated_train_data)
-  print('round {:2d}, metrics={}'.format(round_num, metrics))
+    state, metrics = iterative_process.next(state, federated_train_data)
+    print('round {:2d}, metrics={}'.format(round_num, metrics))
+
+evaluation = tff.learning.build_federated_evaluation(MnistModel)
+train_metrics = evaluation(state.model, federated_train_data)
+federated_test_data = make_federated_data(emnist_test, sample_clients)
+test_metrics = evaluation(state.model, federated_test_data)
+print(str(test_metrics))
+print(str(train_metrics))
