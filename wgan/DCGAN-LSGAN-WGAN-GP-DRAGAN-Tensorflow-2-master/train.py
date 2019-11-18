@@ -17,7 +17,7 @@ import module
 # ==============================================================================
 
 # command line
-py.arg('--dataset', default='fashion_mnist', choices=['cifar10', 'fashion_mnist', 'mnist', 'celeba', 'anime', 'custom'])
+py.arg('--dataset', default='mnist', choices=['cifar10', 'fashion_mnist', 'mnist', 'celeba', 'anime', 'custom'])
 py.arg('--batch_size', type=int, default=64)
 py.arg('--epochs', type=int, default=25)
 py.arg('--lr', type=float, default=0.0002)
