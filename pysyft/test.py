@@ -25,6 +25,7 @@ device = torch.device("cuda" if use_cuda else "cpu")
 kwargs = {'num_workers': 1, 'pin_memory': True} if not use_cuda else {}
 print(device)
 hook = sy.TorchHook(torch)  
+workers = []
 bob = sy.VirtualWorker(hook, id="bob") 
 alice = sy.VirtualWorker(hook, id="alice")
 
@@ -78,7 +79,7 @@ def train(args, model, device, train_loader, optimizer, epoch):
         optimizer.step()
         model.get()
         if batch_idx % args.log_interval == 0:
-            loss = loss.get() # <-- NEW: get the loss back
+            loss = loss.get() 
             print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
                 epoch, batch_idx * args.batch_size, len(train_loader) * args.batch_size, 100. * batch_idx / len(train_loader), loss.item()))
 
